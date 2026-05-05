@@ -263,7 +263,9 @@ private void GotoPage()
         {
             Contact c= new Contact(fname, lname, phone, email);
             allContacts.Add(c);
+            page = PageCount(allContacts, size);
              Console.WriteLine("Contact created successfully.");
+             PressEnterContinue();
         }
         else
         {
@@ -274,7 +276,25 @@ private void GotoPage()
 
     private void ReviewContact()
     {
+        int index= GetInt("Enter index", 1, allContacts.Count) - 1;
+         Console.Clear();
+        ReviewContact(index);
+        PressEnterContinue();
+    }
+    private void ReviewContact(int index)
+    {
+        Contact c= allContacts[index];
+        Console.WriteLine(new string('#', 80));
         Console.WriteLine("Review Contact");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine();
+
+        Console.WriteLine($"First Name: {c.GetFName()}");
+        Console.WriteLine($"Last Name: {c.GetLName()}");
+        Console.WriteLine($"Phone: {c.GetPhone()}");
+        Console.WriteLine($"Email: {c.GetEmail()}");
+
+        Console.WriteLine();
     }
 
     private void UpdateContact()
