@@ -247,7 +247,29 @@ private void GotoPage()
 
     private void CreateContact()
     {
+        Console.Clear();
         Console.WriteLine("Create Contact");
+        Console.Write(new string ('#',80));
+        Console.WriteLine();
+        Console.Write("First Name: ");
+        string fname = Console.ReadLine()!;
+        Console.Write("Last Name: ");
+        string lname = Console.ReadLine()!;
+        Console.Write("Phone: ");
+        string phone = Console.ReadLine()!;
+        Console.Write("Email: ");
+        string email = Console.ReadLine()!;
+        if (Confirm("Create contact with the above information?", YES))
+        {
+            Contact c= new Contact(fname, lname, phone, email);
+            allContacts.Add(c);
+             Console.WriteLine("Contact created successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Contact creation cancelled.");
+        }
+         PressEnterContinue();
     }
 
     private void ReviewContact()
