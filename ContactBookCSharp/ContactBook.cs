@@ -47,6 +47,7 @@ string input;
         
             do
             {
+                ShowContacts();
                 ShowInputOptions();
                 input = GetInput();
             }
@@ -148,12 +149,18 @@ string input;
 
     private bool IsValidInput(string input)
     {
+        if(!COMMANDS.Contains(input))
+        {
+            Console.WriteLine("ERROR: Invalid input. Please try again.");
+            PressEnterContinue();
+            return false;
+        }
+        else
+        {
         return true;
+        }
     }
 
- 
-   
-   
     private void PressEnterContinue()
     {
         Console.WriteLine("Press ENTER to continue...");
