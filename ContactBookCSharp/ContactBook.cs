@@ -115,10 +115,20 @@ string input;
         }
     }
 
+ private void ShowInputOptions()
+    {
+        string inputOptions = ""
+        + $"[{NEXT_PAGE     }] Next Page        |  [{PREV_PAGE     }] Previous Page    |  [{GOTO_PAGE           }] Go to Page            |  [{PAGE_SIZE     }] Set Page Size  | \n"
+        + $"[{CREATE_CONTACT}] Create Contact   |  [{REVIEW_CONTACT}] Review Contact   |  [{UPDATE_CONTACT      }] Update Contact        |  [{DELETE_CONTACT}] Delete Contact | \n"
+        + $"[{FIND_CONTACT  }] Find Contact     |  [{ORDER_CONTACTS}] Order Contacts   |  [{DEDUPLICATE_CONTACTS}] Deduplicate Contacts  |  [{EXIT          }] Exit           |\n"
+        + $"\n> ";
+        Console.WriteLine();
+        Console.WriteLine(inputOptions);
+    }
 
     private string GetInput()
     {
-        return Console.ReadLine() ?? string.Empty;
+        return Console.ReadLine()?.Trim().ToUpper() ?? "";
     }
     
     private void ShowExitScreen()
@@ -143,11 +153,7 @@ string input;
 
  
    
-    private void ShowInputOptions()
-    {
-        
-    }
-
+   
     private void PressEnterContinue()
     {
         Console.WriteLine("Press ENTER to continue...");
