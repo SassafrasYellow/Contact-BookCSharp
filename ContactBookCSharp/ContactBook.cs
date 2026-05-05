@@ -357,9 +357,41 @@ string email= c.GetEmail();
         Console.WriteLine();
     }
 
-    private void DeleteContact()
+   private void DeleteContact()
     {
-        Console.WriteLine("Delete Contact");
+        int index= GetInt("Enter index", 1, allContacts.Count) - 1;
+         Console.Clear();
+        RemoveContact(index);
+        PressEnterContinue();
+    }
+    private void RemoveContact(int index)
+    {
+        Contact c= allContacts[index];
+
+ReviewContact(index);
+string fname= c.GetFName();
+string lname= c.GetLName();
+string phone= c.GetPhone(); 
+string email= c.GetEmail();
+
+
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("Remove Contact");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine();
+
+        if(Confirm("Do you want to remove this contact?", NO))
+        {
+            allContacts.RemoveAt(index);
+             Console.WriteLine("Contact removed successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Contact update cancelled.");
+        }
+
+
+        Console.WriteLine();
     }
 
     private void FindContact()
