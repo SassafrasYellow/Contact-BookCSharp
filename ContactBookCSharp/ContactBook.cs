@@ -128,7 +128,7 @@ string input;
 
     private string GetInput()
     {
-        return Console.ReadLine()?.Trim().ToUpper() ?? "";
+        return Console.ReadLine()!.ToUpper();
     }
     
     private void ShowExitScreen()
