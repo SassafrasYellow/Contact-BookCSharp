@@ -36,6 +36,7 @@ public class ContactBook
      EXIT
     };
     private List<Contact> allContacts;
+    private List<Contact> filteredContacts;
     private int page;
     private int size;
     private bool isExit;
@@ -43,6 +44,7 @@ public class ContactBook
     public ContactBook(List<Contact> contacts = null!)
     {
         allContacts = (contacts == null) ? new List<Contact>() : contacts;
+        filteredContacts = allContacts;
         page = 1;
         size = 10;
         isExit = false;
@@ -82,7 +84,7 @@ string input;
 
 private void ShowContacts()
     {
-        ShowContacts(allContacts,page, size);
+        ShowContacts(filteredContacts,page, size);
     }
 
        private void ShowContacts(List<Contact> contacts, int page, int size)
@@ -207,7 +209,7 @@ private void ShowContacts()
 
     private void NextPage()
     {
-        NextPage(allContacts, ref page, size);
+        NextPage(filteredContacts, ref page, size);
     }
 
 private void NextPage(List<Contact> contacts, ref int page, int size)
@@ -217,7 +219,7 @@ private void NextPage(List<Contact> contacts, ref int page, int size)
 
   private void PrevPage()
     {
-        PrevPage(allContacts, ref page, size);
+        PrevPage(filteredContacts, ref page, size);
     }
 
 private void PrevPage(List<Contact> contacts, ref int page, int size)
@@ -226,7 +228,7 @@ private void PrevPage(List<Contact> contacts, ref int page, int size)
     }
 private void GotoPage()
     {
-        GotoPage(allContacts, ref page, size);
+        GotoPage(filteredContacts, ref page, size);
     }
     private void GotoPage(List<Contact> contacts, ref int page, int size)
     {
@@ -262,8 +264,8 @@ private void GotoPage()
         if (Confirm("Create contact with the above information?", YES))
         {
             Contact c= new Contact(fname, lname, phone, email);
-            allContacts.Add(c);
-            page = PageCount(allContacts, size);
+            filteredContacts.Add(c);
+            page = PageCount(filteredContacts, size);
              Console.WriteLine("Contact created successfully.");
              PressEnterContinue();
         }
@@ -276,14 +278,14 @@ private void GotoPage()
 
     private void ReviewContact()
     {
-        int index= GetInt("Enter index", 1, allContacts.Count) - 1;
+        int index= GetInt("Enter index", 1, filteredContacts.Count) - 1;
          Console.Clear();
         ReviewContact(index);
         PressEnterContinue();
     }
     private void ReviewContact(int index)
     {
-        Contact c= allContacts[index];
+        Contact c= filteredContacts[index];
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("Review Contact");
         Console.WriteLine(new string('#', 80));
@@ -299,14 +301,14 @@ private void GotoPage()
 
    private void UpdateContact()
     {
-        int index= GetInt("Enter index", 1, allContacts.Count) - 1;
+        int index= GetInt("Enter index", 1, filteredContacts.Count) - 1;
          Console.Clear();
         UpdateContact(index);
         PressEnterContinue();
     }
     private void UpdateContact(int index)
     {
-        Contact c= allContacts[index];
+        Contact c= filteredContacts[index];
 
 ReviewContact(index);
 string fname= c.GetFName();
@@ -359,14 +361,14 @@ string email= c.GetEmail();
 
    private void DeleteContact()
     {
-        int index= GetInt("Enter index", 1, allContacts.Count) - 1;
+        int index= GetInt("Enter index", 1, filteredContacts.Count) - 1;
          Console.Clear();
         RemoveContact(index);
         PressEnterContinue();
     }
     private void RemoveContact(int index)
     {
-        Contact c= allContacts[index];
+        Contact c= filteredContacts[index];
 
 ReviewContact(index);
 string fname= c.GetFName();
@@ -382,7 +384,7 @@ string email= c.GetEmail();
 
         if(Confirm("Do you want to remove this contact?", NO))
         {
-            allContacts.RemoveAt(index);
+            filteredContacts.RemoveAt(index);
              Console.WriteLine("Contact removed successfully.");
         }
         else
@@ -396,7 +398,21 @@ string email= c.GetEmail();
 
     private void FindContact()
     {
-        Console.WriteLine("Find Contact");
+        Console.Write("Enter search term: ");
+        string searchTerm = Console.ReadLine()!.ToLower();
+
+ if(Confirm("Do you want to search this contact?", YES))
+        {
+           filteredContacts = allContacts.FindAll(c => (c.GetFName() + c.GetLName() + c.GetPhone() + c.GetEmail()).ToLower().Contains(searchTerm));
+        page = 1;
+        Console.WriteLine("Operation successful: Contacts filtered.");
+         PressEnterContinue();
+        }
+        else
+        {
+            Console.WriteLine("Contact search cancelled.");
+        }
+        
     }
 
     private void OrderContacts()
