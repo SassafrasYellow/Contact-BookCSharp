@@ -139,7 +139,8 @@ string input;
     
     private void ShowExitScreen()
     {
-        
+        Console.Clear();
+        Console.WriteLine("Thank you for using Jorge's Contact Book. Goodbye!");
     }
 
     private bool ConfirmExit()
