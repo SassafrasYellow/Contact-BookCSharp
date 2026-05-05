@@ -224,10 +224,13 @@ private void PrevPage(List<Contact> contacts, ref int page, int size)
     {
         page = Math.Clamp(page - 1, 1, PageCount(contacts, size));
     }
-
-    private void GotoPage()
+private void GotoPage()
     {
-        Console.WriteLine("Go to Page");
+        GotoPage(allContacts, ref page, size);
+    }
+    private void GotoPage(List<Contact> contacts, ref int page, int size)
+    {
+        page = GetInt("Enter page", 1, PageCount(contacts, size));
     }
 
     private void PageSize()
@@ -273,6 +276,23 @@ private void PrevPage(List<Contact> contacts, ref int page, int size)
     private void Exit()
     {
         isExit = true;
+    }
+
+private int GetInt( string prompt, int min, int max)
+    {
+         string options = $"{min} - {max}";
+
+        Console.WriteLine(prompt + $" [{options}]");
+        string answer = Console.ReadLine()!.ToUpper();
+        int value;
+
+        while(!int.TryParse(answer, out value) || value < min || value > max)
+        {
+            Console.WriteLine("ERROR: Invalid input. Please try again.");
+            Console.WriteLine(prompt + $" [{options}]");
+            answer = Console.ReadLine()!;
+        }
+        return value;
     }
 
 private string GetOptions(string prompt, string[] validOptions, string defaultOption)
