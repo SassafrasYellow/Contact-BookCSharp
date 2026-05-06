@@ -2,11 +2,13 @@ namespace ContactBook;
 //Disjoint-Set Union-Find data structure to find duplicate contacts based on phone and email
 public class ContactMerger
 {
+    //When invoked
    public static List<List<Contact>> FindDuplicates(List<Contact> contacts)
     {
         var phoneIndex =new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         var emailIndex = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
+        //creates a disjoint-set union data structure
         var ds = new DuplicateSets(contacts.Count);
 
         for(int i=0; i<contacts.Count; i++)

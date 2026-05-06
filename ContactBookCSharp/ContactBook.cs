@@ -267,7 +267,6 @@ private void GotoPage()
             filteredContacts.Add(c);
             page = PageCount(filteredContacts, size);
              Console.WriteLine("Contact created successfully.");
-             PressEnterContinue();
         }
         else
         {
